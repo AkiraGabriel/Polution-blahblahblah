@@ -12,7 +12,8 @@ def get_air_pollution_Data(API_KEY, lat, lon):
     if response.status_code == 200:
         return response.json()
     else:
-        return print(f'Error requisition: {response.status_code}')
+        print(f'Error requisition: {response.status_code}')
+        return None
     
 lat = '40.7128'
 lon = '-74.0060'
@@ -21,5 +22,5 @@ data = get_air_pollution_Data(API_KEY, lat, lon)
 
 columns = []
 
-for i in data['list'][0]['components'].keys():
-    columns.append(i)
+if data:
+    columns = data['list'][0]['components'].keys()
