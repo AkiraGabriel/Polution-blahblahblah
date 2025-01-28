@@ -1,9 +1,18 @@
 import requests
-import psycopg2
-from datetime import datetime
+# import psycopg2
+# from datetime import datetime
+import pandas as pd
 import os
 
+df = pd.read_excel('cities_list.xlsx')
+
+df.rename(columns={"name": "City", "lon": "Longitude", "lat": "Latitude", "country": "Country"}, inplace=True)
+
 API_KEY = os.getenv('API_KEY')
+if not API_KEY:
+    print("API key not founded")
+
+df_pollution = pd.DataFrame(data=df, index=None, columns=df.columns)
 
 def get_air_pollution_Data(API_KEY, lat, lon):
     
@@ -20,7 +29,3 @@ lon = '-74.0060'
 
 data = get_air_pollution_Data(API_KEY, lat, lon)
 
-columns = []
-
-if data:
-    columns = data['list'][0]['components'].keys()
