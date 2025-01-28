@@ -29,3 +29,4 @@ lon = '-74.0060'
 
 data = get_air_pollution_Data(API_KEY, lat, lon)
 
+print("teste")
